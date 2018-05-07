@@ -20,20 +20,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     //this.getUsers();
   }
-
-  getUsers() {
-    //this._userService.getUsers()
-    //.then(users => this.users = users)
-  }
-
-  create(user: User){
-    //console.log(user)
-    this.users.push(user);
-  }
-
-  destroy(user: User){
-    const i = this.users.indexOf(user);
-    this.users.splice(i, 1)
-  }
+  
 
 }

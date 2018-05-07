@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 
 import { UserService } from './user/user.service';
@@ -13,6 +14,10 @@ import { UserNewComponent } from './user/user-new/user-new.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 
+const appRoutes: Routes = [
+  { path: 'user-list', component: UserListComponent },
+  { path: 'user-new', component: UserNewComponent }
+]
 
 @NgModule({
   declarations: [
@@ -26,7 +31,8 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     UserService

@@ -9,18 +9,29 @@ import { User } from '../user'
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  @Input() users;
+  users: any;
+  //@Input() users;
   @Output() destroyUserEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
+    this.getUsers();
   }
+
+  getUsers(){
+    this.users = [
+      new User(1, 'Oscar', 'Vicente', 'vicenteyan@gmail.com'),
+      new User(2, 'Oscar', 'Vicente', 'vicenteyan@gmail.com')
+    ];
+  }
+
+
 
   destroy(user: User){
     const r = confirm('delete?')
     if(r){
       this.destroyUserEvent.emit(user);
-    }    
+    }
   }
 
 }
