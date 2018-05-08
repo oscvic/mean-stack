@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { UserService } from './user/user.service';
 
@@ -15,8 +16,11 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 
 const appRoutes: Routes = [
-  { path: 'user-list', component: UserListComponent },
-  { path: 'user-new', component: UserNewComponent }
+  { path: '', redirectTo: 'users', pathMatch: 'full' },
+  { path: 'users', component: UserListComponent },
+  { path: 'user-new', component: UserNewComponent },
+  { path: 'user-details/:id', component: UserDetailsComponent },
+  { path: 'user-edit/:id', component: UserEditComponent }
 ]
 
 @NgModule({
@@ -35,7 +39,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    UserService
+    UserService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

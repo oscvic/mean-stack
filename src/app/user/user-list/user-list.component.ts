@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { UserService } from '../user.service';
 import { User } from '../user'
 
@@ -10,27 +12,35 @@ import { User } from '../user'
 })
 export class UserListComponent implements OnInit {
   users: any;
-  //@Input() users;
-  @Output() destroyUserEvent = new EventEmitter();
-  constructor() { }
+
+  constructor(
+    private _userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers(){
-    this.users = [
-      new User(1, 'Oscar', 'Vicente', 'vicenteyan@gmail.com'),
-      new User(2, 'Oscar', 'Vicente', 'vicenteyan@gmail.com')
-    ];
+    this._userService.getUsers().then((res) => {
+      this.users = res;
+      console.log(this.users);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
-
-
-  destroy(user: User){
-    const r = confirm('delete?')
+  destroy(id){
+    const r = confirm('are you sure you want to delete??')
     if(r){
-      this.destroyUserEvent.emit(user);
+      this._userService.deleteUser(id).then((result) => {
+        let idx = this.users.findIndex(x => x._id === id)
+        this.users.splice(idx, 1);
+        //this.router.navigate(['/users']);
+      }, (err) => {
+        console.log(err);
+      });
     }
   }
 

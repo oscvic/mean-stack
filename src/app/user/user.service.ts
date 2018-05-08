@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { User } from './user';
+//import { User } from './user';
 
 import "rxjs";
+import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -13,29 +14,63 @@ export class UserService {
     private _http:Http
   ) { }
 
-  create(user: User) {
-    return this._http.post('/users',user)
-    .map(data => data.json()).toPromise()
-  }
-
-  destroy(user: User) {
-    return this._http.delete('/users/' + user._id)
-    .map(data => data.json()).toPromise()
-  }
-
-  update(user: User) {
-    return this._http.put('/users/' + user._id, user)
-    .map(data => data.json()).toPromise()
-  }
-
   getUsers() {
-    return this._http.get('/users')
-    .map(data => data.json()).toPromise()
+    return new Promise((resolve, reject) => {
+      this._http.get('/user')
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+      });
   }
 
-  getUser(user: User) {
-    this._http.get('/users/' + user._id)
-    .map(data => data.json()).toPromise()
+  saveUser(data) {
+    return new Promise((resolve, reject) => {
+        this._http.post('/user', data)
+          .map(res => res.json())
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });
+  }
+
+  showUser(id) {
+    return new Promise((resolve, reject) => {
+        this._http.get('/user/' + id)
+          .map(res => res.json())
+          .subscribe(res => {
+            resolve(res)
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  updateUser(id, data) {
+      return new Promise((resolve, reject) => {
+          this._http.put('/user/' + id, data)
+            .map(res => res.json())
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+    }
+
+    deleteUser(id) {      
+      return new Promise((resolve, reject) => {
+          this._http.delete('/user/' + id)
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
   }
 
 

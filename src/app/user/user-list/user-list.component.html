@@ -21,13 +21,18 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of users" >
-        <td>{{user._id}}</td>
+        <td>
+          <a
+            [routerLink]="['/user-details', user._id]">
+            {{user._id}}
+          </a>
+        </td>
         <td>{{user.first_name}}</td>
         <td>{{user.last_name}}</td>
         <td>{{user.email}}</td>
         <td>
-        <button (click)="destroy(user)">Destroy</button>
-        <button>Update</button>
+        <button class="btn btn-danger" (click)="destroy(user._id)">Delete</button>
+        <a [routerLink]="['/user-edit', user._id]" class="btn btn-success">Update</a>
       </td>
       </tr>
       </tbody>

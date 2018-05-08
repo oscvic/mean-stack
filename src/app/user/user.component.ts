@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from './user.service';
+
 import { User } from './user';
 
 @Component({
@@ -9,10 +10,10 @@ import { User } from './user';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  users: User[] = [
+  /*users: User[] = [
     new User(1, 'Oscar', 'Vicente', 'vicenteyan@gmail.com'),
     new User(2, 'Oscar', 'Vicente', 'vicenteyan@gmail.com')
-  ];
+  ];*/
   constructor(
     private _userService: UserService
   ) { }
@@ -20,6 +21,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     //this.getUsers();
   }
-  
+
 
 }
