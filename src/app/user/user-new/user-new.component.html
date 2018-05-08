@@ -1,5 +1,14 @@
 <h1>User New Component</h1>
 
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+      <a [routerLink]="['/user-list']" class="btn btn-primary float-right mt-2">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true">Return Users</span>
+      </a>
+    </div>
+  </div>
+
 <form (submit)="create()" >
   <div class="row" >
     <div class="col-md-6">
